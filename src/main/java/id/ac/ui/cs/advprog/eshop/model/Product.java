@@ -9,4 +9,28 @@ public class Product {
 	private String productName;
 	private int productQuantity;
 	
+	public String getProductId() {
+		return productId;
+	}
+	
+	public void setProductId(String id) {
+		this.productId = id;
+	}
+	
+	public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String name) {
+        this.productName = name;
+    }
+
+    public int getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int quantity) {
+        this.productQuantity = quantity;
+    }
+	
 }
