@@ -37,5 +37,4 @@ public class Product {
     public void setProductQuantity(int quantity) {
         this.productQuantity = quantity;
     }
-	
 }
