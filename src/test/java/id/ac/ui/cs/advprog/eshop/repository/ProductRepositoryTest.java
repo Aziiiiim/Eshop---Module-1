@@ -9,9 +9,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 public class ProductRepositoryTest {
 
@@ -66,4 +66,57 @@ public class ProductRepositoryTest {
         assertEquals(product2.getProductId(),savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+    
+    @Test
+    void testFindById_Success() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Shampoo A");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product foundProduct = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertNotNull(foundProduct);
+        assertEquals("Shampoo A", foundProduct.getProductName());
+        assertEquals(10, foundProduct.getProductQuantity());
+    }
+
+    @Test
+    void testFindById_Failure_ProductNotFound() {
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
+            productRepository.findById("invalid-id");
+        });
+
+        assertEquals("Product not found with ID: invalid-id", exception.getMessage());
+    }
+
+    @Test
+    void testDeleteById_Success() {
+        Product product = new Product();
+        product.setProductId("delete-test-id");
+        product.setProductName("Shampoo B");
+        product.setProductQuantity(20);
+        productRepository.create(product);
+
+        assertNotNull(productRepository.findById("delete-test-id"));
+
+        productRepository.deleteById("delete-test-id");
+
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
+            productRepository.findById("delete-test-id");
+        });
+
+        assertEquals("Product not found with ID: delete-test-id", exception.getMessage());
+    }
+
+    @Test
+    void testDeleteById_Failure_ProductNotFound() {
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
+            productRepository.deleteById("non-existent-id");
+        });
+
+        assertEquals("Product not found with ID: non-existent-id", exception.getMessage());
+    }
+
+    
 }
