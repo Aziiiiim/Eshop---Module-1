@@ -1,21 +1,40 @@
 name: PMD Code Analysis
 
-on:  
+# This workflow runs PMD on all branches when there is a push or a pull request
+on:
   push:
-    branches:
-        - "**"
+  pull_request:
 
 jobs:
   pmd:
-    runs-on: ubuntu-latest
+    name: Run PMD Analysis
+    runs-on: ubuntu-22.04
+
+    permissions:
+      # Required for security scanning workflows
+      security-events: write
+
     steps:
-      - name: Checkout repository
+      - name: Check out the Git repository
         uses: actions/checkout@v4
 
-      - name: Run PMD
-        uses: pmd/pmd-github-action@v1
+      - name: Set up Java toolchain
+        uses: actions/setup-java@v4
         with:
-          version: "7.0.0-rc4"
-          rulesets: "rulesets/java/quickstart.xml"
-          sourcePath: "./src/main/java"
-          analyzeModifiedFilesOnly: false  
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Run PMD Analysis
+        uses: pmd/pmd-github-action@v2
+        id: pmd
+        with:
+          version: '7.0.0-rc4'
+          sourcePath: 'src/main/java'
+          rulesets: 'rulesets/java/quickstart.xml,ruleset.xml'
+          analyzeModifiedFilesOnly: false
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: pmd-report.sarif
