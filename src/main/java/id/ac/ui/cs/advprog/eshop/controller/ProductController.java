@@ -15,16 +15,23 @@ import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 
 @Controller
-@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
     private ProductService service;
 
     /**
+     * Displays the HomePage page.
+     */
+    @GetMapping("/")
+    public String home(Model model) {
+        return "HomePage";
+    }
+    
+    /**
      * Displays the product creation page with an empty Product object.
      */
-    @GetMapping("/create")
+    @GetMapping("/product/create")
     public String createProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
@@ -35,7 +42,7 @@ public class ProductController {
      * Handles form submission for creating a new product.
      * Redirects to the product list after successful creation.
      */
-    @PostMapping("/create")
+    @PostMapping("/product/create")
     public String createProductPost(@ModelAttribute Product product, Model model) {
         service.create(product);
         return "redirect:list";
@@ -44,7 +51,7 @@ public class ProductController {
     /**
      * Displays the list of all products.
      */
-    @GetMapping("/list")
+    @GetMapping("/product/list")
     public String createListPage(Model model) {
         List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
@@ -55,7 +62,7 @@ public class ProductController {
      * Displays the product edit page for the given product ID.
      * Throws an exception if the product is not found.
      */
-    @GetMapping("/edit/{id}")
+    @GetMapping("/product/edit/{id}")
     public String editProductPage(@PathVariable("id") String id, Model model) {
         Product product = service.findById(id);
         model.addAttribute("product", product);
@@ -66,7 +73,7 @@ public class ProductController {
      * Handles form submission for updating a product.
      * Redirects to the product list after a successful update.
      */
-    @PostMapping("/edit/{id}")
+    @PostMapping("/product/edit/{id}")
     public String editProductPost(@PathVariable("id") String id, @ModelAttribute Product product) {
         service.update(id, product);
         return "redirect:/product/list";
@@ -75,7 +82,7 @@ public class ProductController {
     /**
      * Deletes a product by its ID and redirects to the product list.
      */
-    @GetMapping("/delete/{id}")
+    @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") String id, Model model) {
         service.deleteProduct(id);
         return "redirect:/product/list";
