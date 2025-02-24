@@ -40,6 +40,7 @@ jobs:
     - name: Push Docker image
       run: |
         docker push ${{ secrets.DOCKER_USERNAME }}/advshop:${{ github.sha }}
+        docker push aziiiiim/advshop:latest
 
     - name: Logout from Docker Hub
       run: docker logout
