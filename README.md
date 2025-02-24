@@ -14,22 +14,18 @@ You can find the Docker image for this application on Docker Hub:
 To use the pre-built Docker image, you can pull it using the following command:
 
 ```bash
-docker pull aziiiiim/advshop:48e45b879c75c6196b3e443c399116c9ca5feec4
+docker pull aziiiiim/advshop:latest
 ```
 
 ### Running
 Once the image is pulled, you can run the container using this command:
 
 ```bash
-docker run --name advshop-container -p 8080:8080 aziiiiim/advshop:48e45b879c75c6196b3e443c399116c9ca5feec4
+docker run --rm -it -p 8080:8080 aziiiiim/advshop:latest
 ```
 
-And end it this way:
-```bash
-docker rm advshop-container
-```
-
-ATTENTION: Unfortunately, something prevents the application to work via the Docker Image so it's still does not work. In order, to test the application you will need to clone the repo. 
+Then access to : 
+https://localhost:8080/product/list
 
 ## Reflection 1  (Module 1)
 
