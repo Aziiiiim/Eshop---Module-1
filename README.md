@@ -24,8 +24,10 @@ Once the image is pulled, you can run the container using this command:
 docker run --rm -it -p 8080:8080 aziiiiim/advshop:latest
 ```
 
-Then access to : 
-https://localhost:8080/product/list
+Then access to:  
+- https://localhost:8080/product/list  
+- https://localhost:8080/car/list
+- https://localhost:8080/
 
 ## Reflection 1  (Module 1)
 
