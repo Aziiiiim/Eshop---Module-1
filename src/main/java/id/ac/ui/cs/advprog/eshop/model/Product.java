@@ -4,37 +4,32 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Product {
-	private static int lastId = -1;
+public class Product implements Item{
 	private String productId;
 	private String productName;
 	private int productQuantity;
 	
-	public Product() {
-		productId = ""+ ++lastId;
-	}
-	
-	public String getProductId() {
+	public String getId() {
 		return productId;
 	}
 	
-	public void setProductId(String id) {
+	public void setId(String id) {
 		this.productId = id;
 	}
 	
-	public String getProductName() {
+	public String getName() {
         return productName;
     }
 
-    public void setProductName(String name) {
+    public void setName(String name) {
         this.productName = name;
     }
 
-    public int getProductQuantity() {
+    public int getQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(int quantity) {
+    public void setQuantity(int quantity) {
         this.productQuantity = quantity;
     }
 }

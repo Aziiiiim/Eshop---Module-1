@@ -3,41 +3,41 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Car {
+public class Car implements Item{
 	private String carId;
 	private String carName;
 	private String carColor;
 	private int carQuantity;
 	
-	public String getCarId() {
+	public String getId() {
 		return carId;
 	}
 	
-	public void setCarId(String id) {
+	public void setId(String id) {
 		carId = id;
 	}
 	
-	public String getCarName() {
+	public String getName() {
 		return carName;
 	}
 	
-	public void setCarName(String name) {
+	public void setName(String name) {
 		carName = name;
 	}
 	
-	public String getCarColor() {
+	public String getColor() {
 		return carColor;
 	}
 	
-	public void setCarColor(String color) {
+	public void setColor(String color) {
 		carColor = color;
 	}
 	
-	public int getCarQuantity() {
+	public int getQuantity() {
 		return carQuantity;
 	}
 
-	public void setCarQuantity(int quantity) {
+	public void setQuantity(int quantity) {
 		carQuantity= quantity;
 	}
 }

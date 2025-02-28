@@ -10,19 +10,19 @@
 <div class="container">
     <h3>Create New Car</h3>
 
-    <form th:action="@{/car/createCar}" th:object="${car}" method="post">
+    <form th:action="@{/car/create}" th:object="${car}" method="post">
         <div class="form-group">
             <label for="nameInput">Name</label>
-            <input th:field="*{carName}" type="text" class="form-control mb-4 col-4" id="nameInput" placeholder="Enter car name" required>
+            <input th:field="*{name}" type="text" class="form-control mb-4 col-4" id="nameInput" placeholder="Enter car name" required>
         </div>
         <div class="form-group">
             <label for="colorInput">Color</label>
-            <input th:field="*{carColor}" type="text" class="form-control mb-4 col-4" id="colorInput" placeholder="Enter car color" required>
+            <input th:field="*{color}" type="text" class="form-control mb-4 col-4" id="colorInput" placeholder="Enter car color" required>
         </div>
         <div class="form-group">
             <label for="quantityInput">Quantity</label>
-            <input th:field="*{carQuantity}" type="number" class="form-control mb-4 col-4" id="quantityInput" placeholder="Enter car quantity" min="0" required>
-            <span th:if="${#fields.hasErrors('carQuantity')}" class="text-danger">
+            <input th:field="*{quantity}" type="number" class="form-control mb-4 col-4" id="quantityInput" placeholder="Enter car quantity" min="0" required>
+            <span th:if="${#fields.hasErrors('quantity')}" class="text-danger">
                 Quantity must be a positive number.
             </span>
         </div>

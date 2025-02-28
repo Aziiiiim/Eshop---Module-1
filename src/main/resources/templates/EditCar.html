@@ -10,23 +10,23 @@
 <div class="container">
     <h3>Edit Car</h3>
 
-    <form th:action="@{/car/editCar}" th:object="${car}" method="post">
-        <input type="hidden" th:field="*{carId}" />
+    <form th:action="@{/car/edit}" th:object="${car}" method="post">
+        <input type="hidden" th:field="*{id}" />
         
         <div class="form-group">
-            <label for="carName">Car Name</label>
-            <input th:field="*{carName}" type="text" class="form-control mb-4 col-4" id="carName" placeholder="Enter car name" required>
+            <label for="name">Car Name</label>
+            <input th:field="*{name}" type="text" class="form-control mb-4 col-4" id="name" placeholder="Enter car name" required>
         </div>
 
         <div class="form-group">
-            <label for="carColor">Car Color</label>
-            <input th:field="*{carColor}" type="text" class="form-control mb-4 col-4" id="carColor" placeholder="Enter car color" required>
+            <label for="color">Car Color</label>
+            <input th:field="*{color}" type="text" class="form-control mb-4 col-4" id="color" placeholder="Enter car color" required>
         </div>
 
         <div class="form-group">
-            <label for="carQuantity">Quantity</label>
-            <input th:field="*{carQuantity}" type="number" class="form-control mb-4 col-4" id="carQuantity" placeholder="Enter car quantity" min="0" required>
-            <span th:if="${#fields.hasErrors('carQuantity')}" class="text-danger">
+            <label for="quantity">Quantity</label>
+            <input th:field="*{quantity}" type="number" class="form-control mb-4 col-4" id="quantity" placeholder="Enter car quantity" min="0" required>
+            <span th:if="${#fields.hasErrors('quantity')}" class="text-danger">
                 Quantity must be a positive number.
             </span>
         </div>

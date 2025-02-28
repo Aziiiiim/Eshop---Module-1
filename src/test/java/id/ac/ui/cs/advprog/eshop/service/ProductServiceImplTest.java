@@ -30,9 +30,9 @@ public class ProductServiceImplTest {
     @BeforeEach
     void setUp() {
         sampleProduct = new Product();
-        sampleProduct.setProductId("test-id");
-        sampleProduct.setProductName("Test Product");
-        sampleProduct.setProductQuantity(50);
+        sampleProduct.setId("test-id");
+        sampleProduct.setName("Test Product");
+        sampleProduct.setQuantity(50);
     }
 
     @Test
@@ -42,8 +42,8 @@ public class ProductServiceImplTest {
         Product createdProduct = productService.create(sampleProduct);
 
         assertNotNull(createdProduct);
-        assertEquals("Test Product", createdProduct.getProductName());
-        assertEquals(50, createdProduct.getProductQuantity());
+        assertEquals("Test Product", createdProduct.getName());
+        assertEquals(50, createdProduct.getQuantity());
 
         verify(productRepository, times(1)).create(sampleProduct);
     }
@@ -59,7 +59,7 @@ public class ProductServiceImplTest {
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
-        assertEquals("Test Product", result.get(0).getProductName());
+        assertEquals("Test Product", result.get(0).getName());
     }
 
     @Test
@@ -69,8 +69,8 @@ public class ProductServiceImplTest {
         Product foundProduct = productService.findById("test-id");
 
         assertNotNull(foundProduct);
-        assertEquals("Test Product", foundProduct.getProductName());
-        assertEquals(50, foundProduct.getProductQuantity());
+        assertEquals("Test Product", foundProduct.getName());
+        assertEquals(50, foundProduct.getQuantity());
 
         verify(productRepository, times(1)).findById("test-id");
     }
@@ -88,35 +88,35 @@ public class ProductServiceImplTest {
 
     @Test
     void testUpdateProduct_Success() {
-        Product updatedProduct = new Product();
-        updatedProduct.setProductName("Updated Product");
-        updatedProduct.setProductQuantity(30);
+    	Product updatedProduct = new Product();
+        updatedProduct.setName("Updated Product");
+        updatedProduct.setQuantity(30);
 
-        when(productRepository.findById("test-id")).thenReturn(sampleProduct);
+        when(productRepository.update("test-id", updatedProduct)).thenReturn(updatedProduct);
 
-        productService.update("test-id", updatedProduct);
+        Product result = productService.update("test-id", updatedProduct);
 
-        assertEquals("Updated Product", sampleProduct.getProductName());
-        assertEquals(30, sampleProduct.getProductQuantity());
+        assertEquals("Updated Product", result.getName());
+        assertEquals(30, result.getQuantity()); 
 
-        verify(productRepository, times(1)).findById("test-id");
+        verify(productRepository, times(1)).update("test-id", updatedProduct);
     }
 
     @Test
     void testDeleteProduct_Success() {
-        doNothing().when(productRepository).deleteById("test-id");
+        doNothing().when(productRepository).delete("test-id");
 
-        productService.deleteProduct("test-id");
+        productService.deleteById("test-id");
 
-        verify(productRepository, times(1)).deleteById("test-id");
+        verify(productRepository, times(1)).delete("test-id");
     }
 
     @Test
     void testDeleteProduct_Failure_ProductNotFound() {
-        doThrow(new NoSuchElementException("Product not found")).when(productRepository).deleteById("invalid-id");
+        doThrow(new NoSuchElementException("Product not found")).when(productRepository).delete("invalid-id");
 
         Exception exception = assertThrows(NoSuchElementException.class, () -> {
-            productService.deleteProduct("invalid-id");
+            productService.deleteById("invalid-id");
         });
 
         assertEquals("Product not found", exception.getMessage());
