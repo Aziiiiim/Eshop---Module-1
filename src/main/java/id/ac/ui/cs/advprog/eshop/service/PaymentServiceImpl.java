@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -14,18 +15,29 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentRepository paymentRepository;
 
     public Payment createPayment(Payment payment) {
+        if (paymentRepository.findById(payment.getId()) == null) {
+            paymentRepository.save(payment);
+            return payment;
+        }
         return null;
     }
 
     public Payment updateStatus(String paymentId, String status) {
-        return null;
+        Payment payment = paymentRepository.findById(paymentId);
+        if (payment != null) {
+            Payment updatedPayment = new Payment(payment.getId(), payment.getMethod(), payment.getPaymentData(), status);
+            paymentRepository.save(updatedPayment);
+            return updatedPayment;
+        } else {
+            throw new NoSuchElementException("Payment not found");
+        }
     }
 
     public Payment findById(String paymentId) {
-        return null;
+        return paymentRepository.findById(paymentId);
     }
 
     public List<Payment> findAllByStatus(String status) {
-    	return null;
+        return paymentRepository.findAllByStatus(status);
     }
 }
