@@ -2,6 +2,7 @@ package id.ac.ui.cs.advprog.eshop.model;
 
 import java.util.Map;
 
+import enums.PaymentMethod;
 import enums.PaymentStatus;
 
 public class Payment {
@@ -12,7 +13,7 @@ public class Payment {
 
     public Payment(String id, String method, Map<String, String> paymentData, String status) {
         this.id = id;
-        this.method = method;
+        this.setPaymentMethod(method);;
         this.paymentData = paymentData;
         this.setStatus(status);
     }
@@ -36,13 +37,22 @@ public class Payment {
     public Map<String, String> getPaymentData() {
         return paymentData;
     }
+    
+    public void setPaymentMethod(String method) {
+    	if(validateMethod(method)) {
+    		this.method = method;
+    	}
+    	else {
+            throw new IllegalArgumentException("Invalid payment method: " + status);
+        }
+    }
 
     public void setStatus(String status) {
         if (validateStatus(status)) {
-        	boolean voucherValid = this.getMethod().equals("Voucher") && 
+        	boolean voucherValid = this.getMethod().equals(PaymentMethod.VOUCHER.getValue()) && 
                     isValidVoucher(this.getPaymentData().get("voucherCode"));
                     
-        	boolean cashOnDeliveryValid = this.getMethod().equals("CashOnDelivery") && 
+        	boolean cashOnDeliveryValid = this.getMethod().equals(PaymentMethod.CASH_ON_DELIVERY.getValue()) && 
                            isValidCashOnDelivery(this.getPaymentData());
 
         	if(voucherValid || cashOnDeliveryValid) {
@@ -56,6 +66,9 @@ public class Payment {
         }
     }
     
+    private boolean validateMethod(String method) {
+    	return PaymentMethod.contains(method);
+    }
     private boolean validateStatus(String status) {
          return PaymentStatus.contains(status);
     }
