@@ -10,7 +10,7 @@ public class Payment {
 
     public Payment(String id, String method, Map<String, String> paymentData, String status) {
     }
-    
+
     public Payment(String id, String method, Map<String, String> paymentData) {
     }
 
@@ -31,5 +31,17 @@ public class Payment {
     }
 
     public void setStatus(String status) {
+    }
+
+    private boolean validateStatus(String status) {
+        return false;
+    }
+
+    private boolean isValidVoucher(String voucherCode) {
+        return false;
+    }
+
+    private boolean isValidCashOnDelivery(Map<String, String> paymentData) {
+        return false;
     }
 }
