@@ -87,3 +87,14 @@ In my opinion, pplying SOLID principles brought several advantages to my project
 ### 3 - Explain the disadvantages of not applying SOLID principles to your project with examples.
 
 On the other hand, if SOLID principles were not applied, the project would become harder to maintain and scale. Without the Open/Closed Principle, adding a new entity would require modifying existing repository and service classes, increasing the risk of introducing bugs. Without Dependency Inversion, the project would have strong couplings, making it difficult to write isolated unit tests, as seen when ProductServiceImplTest initially failed due to direct dependencies. A lack of Liskov Substitution could lead to runtime errors if a subclass does not behave as expected when used in a generic repository. In the long run, violating these principles would lead to a rigid, error-prone system that is difficult to extend and modify.
+
+## Reflection (Module 4)
+
+### 1 - Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+Following the TDD workflow was useful because it helped break down the development process into smaller, manageable steps. Writing tests before implementation ensured that each function met the expected behavior before moving forward. However, I think that this process could lead me to refactoring the tests classes because I would realize that the requirements of my methods are changing. This is why following the TDD workflow is hard: we need to focus on writing clearer test cases and identify all the requirements.
+
+### 2 - You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+I think that the tests we made are following the F.I.R.S.T. principle.
+
