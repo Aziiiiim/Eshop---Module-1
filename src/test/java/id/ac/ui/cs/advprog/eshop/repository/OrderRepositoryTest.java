@@ -39,7 +39,7 @@ public class OrderRepositoryTest {
         Order order2 = new Order("7f9e15bb-4b15-42f4-aebc-c3af385fb078", products,1708570000L,"Azim Barhoumi");
         orders.add(order2);
         
-        Order order3 = new Order("e334ef40-9eff-4da8-9487-8ee697ecbf1e", products,1708570000L,"Azim Barhoumi");
+        Order order3 = new Order("e334ef40-9eff-4da8-9487-8ee697ecbf1e", products,1708570000L,"Bambamg Barhoumi");
         orders.add(order3);
     }
 
@@ -100,7 +100,7 @@ public class OrderRepositoryTest {
     		orderRepository.save(order);
     	}
     	
-    	List<Order> orderList = orderRepository.findAllByAuthor(orders.get(1).getAuthor().toLowerCase());
+    	List<Order> orderList = orderRepository.findAllByAuthor(orders.get(1).getAuthor());
     	assertEquals(2,orderList.size());
     }
     
