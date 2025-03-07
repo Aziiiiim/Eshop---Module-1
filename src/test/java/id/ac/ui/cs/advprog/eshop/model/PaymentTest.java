@@ -74,7 +74,36 @@ class PaymentTest {
         paymentData.put("address", ""); // Empty address
         paymentData.put("deliveryFee", "5.00");
         
-        Payment payment = new Payment("3", "CashOnDelivery", paymentData, "");
+        Payment payment = new Payment("3", "CashOnDelivery", paymentData);
         assertEquals("REJECTED", payment.getStatus());
+    }
+    
+    @Test
+    void testCreatePaymentWithInvalidVoucher() {
+        paymentData.put("voucherCode", "INVALID123456789");
+        Payment payment = new Payment("4", "Voucher", paymentData, "PENDING");
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
+    @Test
+    void testCreateCashOnDeliveryPaymentNoAddress() {
+        paymentData.put("address", "");
+        paymentData.put("deliveryFee", "10.00");
+        Payment payment = new Payment("5", "CashOnDelivery", paymentData);
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
+    @Test
+    void testCreateCashOnDeliveryPaymentNoDeliveryFee() {
+        paymentData.put("address", "456 Elm Street");
+        paymentData.put("deliveryFee", "");
+        Payment payment = new Payment("6", "CashOnDelivery", paymentData);
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
+    @Test
+    void testCreatePaymentWithUnknownMethod() {
+        Payment payment = new Payment("7", "Crypto", paymentData, "PENDING");
+        assertEquals("REJECTED", payment.getStatus()); 
     }
 }
