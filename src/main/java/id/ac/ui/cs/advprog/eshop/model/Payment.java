@@ -2,6 +2,8 @@ package id.ac.ui.cs.advprog.eshop.model;
 
 import java.util.Map;
 
+import enums.PaymentStatus;
+
 public class Payment {
 	private String id;
     private String method;
@@ -16,7 +18,7 @@ public class Payment {
     }
 
     public Payment(String id, String method, Map<String, String> paymentData) {
-        this(id, method, paymentData, "PENDING");
+        this(id, method, paymentData, PaymentStatus.PENDING.getValue());
     }
 
     public String getId() {
@@ -47,7 +49,7 @@ public class Payment {
                 this.status = status;
         	}
         	else {
-        		this.status = "REJECTED";
+        		this.status = PaymentStatus.REJECTED.getValue();
         	}
         } else {
             throw new IllegalArgumentException("Invalid payment status: " + status);
@@ -55,7 +57,7 @@ public class Payment {
     }
     
     private boolean validateStatus(String status) {
-        return status.equals("PENDING") || status.equals("SUCCESS") || status.equals("REJECTED") || status.equals("CANCELLED");
+         return PaymentStatus.contains(status);
     }
     
     private boolean isValidVoucher(String voucherCode) {
